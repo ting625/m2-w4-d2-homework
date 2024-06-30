@@ -9,23 +9,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
     <style>
         * {
-            font-family:Arial, Helvetica, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
         }
         #leftside {
-            float:left;
+            float: left;
             width: 30%;
             min-height: 1200px;
-            background-color:rgb(77, 192, 154);
+            background-color: rgb(77, 192, 154);
         }
         #rightside {
-            float:left;
+            float: left;
             width: 70%;
             min-height: 1200px;
-            background-color:rgb(238, 226, 192);
-            position:relative;
+            background-color: rgb(238, 226, 192);
+            position: relative;
         }
         #container {
-            background-color:rgba(255, 255, 255, 0.85);
+            background-color: rgba(255, 255, 255, 0.85);
             position: absolute;
             top: 5%;
             left: 15%;
@@ -37,16 +37,16 @@
         #blogposts {
             position: absolute;
             left: 20%;
-            top: 40px !important; 
+            top: 40px !important;
             padding: 50px;
         }
 
         header {
             height: 50px;
-            background-color:rgba(231, 229, 229, 0.5);
+            background-color: rgba(231, 229, 229, 0.5);
             font-size: 2.75em;
-            padding:0.5em;
-            color:rgb(216, 150, 7);
+            padding: 0.5em;
+            color: rgb(216, 150, 7);
         }
         header span {
             font-family: 'Sacramento', cursive;
@@ -59,7 +59,7 @@
             left: 20%;
             top: 30px;
             margin: 25px 0 200px 50px;
-            color:rgb(60, 190, 160);
+            color: rgb(60, 190, 160);
             text-transform: uppercase;
         }
         main #photos img {
@@ -88,7 +88,7 @@
         }
         .post img {
             cursor: pointer;
-            width:7%;
+            width: 7%;
         }
         .modal {
             display: block; /* Show the modal */
@@ -101,40 +101,24 @@
             overflow: auto;
             background-color: rgb(0, 0, 0);
             background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 200px;
-            }
-            .modal-content {
-            background-color: rgba(0, 0, 0, 0.8);
-            margin: 2% auto;
-            padding: 10px;
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
             border: 1px solid #888;
-            width: 20%;
-            color: #ffffff;
-            border-radius: 3%;
-            }
-            .modal-content h3{
-            font-size: 24px;
-            color: #ffffff;
-            }
-            .modal-content .title{
-            font-size: 16px;
-            color: #ffffff;
-            font-weight: 600;
-            }
-            .modal-content span{
-            font-size: 16px;
-            color: #ffffff;
-            font-weight: 100;
-            }
-            .close {
-            color: #ffffff;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
-            }
-            .close:hover,
-            .close:focus {
-            color: #ffffff;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
             text-decoration: none;
             cursor: pointer;
         }
@@ -198,11 +182,9 @@
             <div class="modal">
                 <div class="modal-content">
                     <span class="close" @click="close">&times;</span>
-                    <h3>{{ profile.name }}</h3>
-                    <p class="title"> Foodie Level: 
-                    <span> {{ profile.level }}</span>
-                    <p class="title"> Bio: 
-                    <p> {{ profile.bio }}</p>
+                    <h2>{{ profile.name }}</h2>
+                    <p>Foodie Level: {{ profile.level }}</p>
+                    <p>{{ profile.bio }}</p>
                 </div>
             </div>
         `,
@@ -250,7 +232,7 @@
                         author: 'LINH', 
                         date: 'February 15, 2021 @ 9:46 am', 
                         content: "I just made this soup today and it's so tasty! didn't have corn at home but still turned out very good. It's a winner! I made beef chili for my parents; but since my dad has gout he can't eat beef; this white chicken chili is perfect for him. Thank you Lisa!", 
-                        profileSrc: 'profile.png',
+                        profileSrc: 'https://via.placeholder.com/50',
                         profile: {
                             name: 'LINH',
                             level: 'Newcomer',
@@ -262,7 +244,7 @@
                         author: 'CATHERINE LEONARDO', 
                         date: 'February 13, 2021 @ 12:58 pm', 
                         content: "I LOVE this White Chicken Chili! You are right, it is satiating meal—delicious with toasted bread. Refreshingly different taste than any chicken chili I've made in the past. I made it exactly as written and added some chopped zucchini, carrots, and celery. Instead of shredding the chicken, I chopped it into small pieces. It freezes very well. Will be an all-time favorite, for sure.", 
-                        profileSrc: 'profile.png',
+                        profileSrc: 'https://via.placeholder.com/50',
                         profile: {
                             name: 'CATHERINE LEONARDO',
                             level: 'Mentor',
@@ -274,7 +256,7 @@
                         author: 'KALI', 
                         date: 'February 13, 2021 @ 11:31 am', 
                         content: "This recipe is dynamite! My partner usually won't eat beans but he finished the whole pot (darn was hoping to have some for leftovers haha). This is crowd-pleaser that I am going to add to my regular recipe rotation. Thanks so much, Lisa!", 
-                        profileSrc: 'profile.png',
+                        profileSrc: 'https://via.placeholder.com/50',
                         profile: {
                             name: 'KALI',
                             level: 'Novice',
