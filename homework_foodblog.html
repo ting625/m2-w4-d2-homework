@@ -105,19 +105,19 @@
             }
             .modal-content {
             background-color: rgba(0, 0, 0, 0.8);
-            margin: 2% auto;
-            padding: 10px;
+            margin: 5% auto;
+            padding: 20px 10px;
             border: 1px solid #888;
             width: 20%;
             color: #ffffff;
             border-radius: 3%;
             }
             .modal-content h3{
-            font-size: 24px;
+            font-size: 32px;
             color: #ffffff;
             }
             .modal-content .title{
-            font-size: 16px;
+            font-size: 20px;
             color: #ffffff;
             font-weight: 600;
             }
@@ -125,6 +125,15 @@
             font-size: 16px;
             color: #ffffff;
             font-weight: 100;
+            }
+            .modal-content .bio{
+            padding-bottom:50px;
+            }
+            .modal-content .btn_close{
+            background-color: #ffffff;
+            color: black;
+            cursor: pointer;
+            padding: 5px;
             }
             .close {
             color: #ffffff;
@@ -202,7 +211,8 @@
                     <p class="title"> Foodie Level: 
                     <span> {{ profile.level }}</span>
                     <p class="title"> Bio: 
-                    <p> {{ profile.bio }}</p>
+                    <p class=bio> {{ profile.bio }}</p>
+                    <span class="btn_close" @click="close">Close </span>
                 </div>
             </div>
         `,
