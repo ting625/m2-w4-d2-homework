@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Food Blog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family:Arial, Helvetica, sans-serif;
+        }
+        #leftside {
+            float:left;
+            width: 30%;
+            min-height: 1200px;
+            background-color:rgb(77, 192, 154);
+        }
+        #rightside {
+            float:left;
+            width: 70%;
+            min-height: 1200px;
+            background-color:rgb(238, 226, 192);
+            position:relative;
+        }
+        #container {
+            background-color:rgba(255, 255, 255, 0.85);
+            position: absolute;
+            top: 5%;
+            left: 15%;
+            min-width: 1100px;
+            min-height: 1050px;
+            border-radius: 0.7em;
+        }
+
+        #blogposts {
+            position: absolute;
+            left: 20%;
+            top: 40px !important; 
+            padding: 50px;
+        }
+
+        header {
+            height: 50px;
+            background-color:rgba(231, 229, 229, 0.5);
+            font-size: 2.75em;
+            padding:0.5em;
+            color:rgb(216, 150, 7);
+        }
+        header span {
+            font-family: 'Sacramento', cursive;
+        }
+        main {
+            position: relative;
+        }
+        main h2 {
+            position: absolute;
+            left: 20%;
+            top: 30px;
+            margin: 25px 0 200px 50px;
+            color:rgb(60, 190, 160);
+            text-transform: uppercase;
+        }
+        main #photos img {
+            margin: 0.75em;
+            border: 0.85em solid rgb(255, 255, 255);
+        }
+        section#blogposts {
+            position: absolute;
+            left: 20%;
+            top: 70px;
+            padding: 50px;
+        }
+        main .post {
+            margin: 25px;
+            padding: 25px;
+            border: 2px solid rgba(83, 78, 58, 0.6);
+            border-radius: 0.5em;
+        }
+        footer {
+            position: absolute;
+            bottom: 0;
+            height: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.85em;
+        }
+        .post img {
+            cursor: pointer;
+            width:7%;
+        }
+        .modal {
+            display: block; /* Show the modal */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 200px;
+            }
+            .modal-content {
+            background-color: #000000;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 25%;
+            }
+            .close {
+            color: #ffffff;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            }
+            .close:hover,
+            .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<!--Convert to VUE-->
+    <aside id="leftside"></aside>
+    <aside id="rightside"></aside>
+    <div id="container">
+
+        <div id="headerComponent">
+            <app-header></app-header>
+        </div>
+
+        <main>
+            <div id="photoComponent">
+                <photo-gallery></photo-gallery>
+            </div>
+            <div id="commentsComponent">
+                <comments-section></comments-section>
+            </div>
+        </main>
+
+        <div id="footerComponent">
+            <app-footer></app-footer>
+        </div>
+    </div>
+
+    <script>
+        Vue.component('app-header', {
+            template: `
+                <header><span>{{ title }}</span></header>
+            `,
+            data() {
+                return {
+                    title: 'Food Blog'
+                }
+            }
+        });
+
+        Vue.component('photo-gallery', {
+            template: `
+                <aside id="photos">
+                    <img v-for="photo in photos" :src="photo.src" :alt="photo.alt" :width="photo.width">
+                </aside>
+            `,
+            data() {
+                return {
+                    photos: [
+                        { src: 'images/chili.jpg', alt: 'White Chicken Chili', width: '180' }
+                    ],
+                }
+            },
+        });
+
+        Vue.component('modal', {
+            template: `
+                <div class="modal">
+                    <div class="modal-content">
+                        <span class="close" @click="close">&times;</span>
+                        <img :src="src" alt="Profile Image">
+                    </div>
+                </div>
+            `,
+            props: ['src'],
+            methods: {
+                close() {
+                    this.$emit('close');
+                }
+            }
+        });
+
+        Vue.component('comments-section', {
+            template: `
+                <div>
+                    <h2>Comments</h2>
+                    <section id="blogposts">
+                        <div class="post" v-for="comment in comments" :key="comment.id">
+                            <img :src="profileSrc" alt="Profile Image" @click="imageClicked(comment.profileSrc)">
+                            <span class="author">{{ comment.author }}</span> — 
+                            <span class="date">{{ comment.date }}</span>
+                            <span class="reply">REPLY</span>
+                            <p>{{ comment.content }}</p>
+                        </div>
+                    </section>
+                    <modal v-if="isModalVisible" :src="currentProfileSrc" @close="isModalVisible = false"></modal>
+                </div>
+            `,
+            data() {
+                return {
+                    profileSrc: 'profile.png', 
+                    comments: [
+                        { id: 1, author: 'Brianna', date: 'February 18, 2021 @ 3:30 pm', content: "Was amazing! My Walmart didn't have coriander in stock and didn't have ground cumin. I used serrano instead of jalapeño. It was just like my favorite tortilla soup from BJs. I am sending this recipe to my family. I want everyone to try it!",
+                        profile: {
+                            name: 'Brianna',
+                            level: 'Novice',
+                            bio: 'Food enthusiast. Love to cook and experiment. Into only organic, fat free, sugar free stuffs!'
+                        }
+                        },
+                        
+                        { id: 2, author: 'LINH', date: 'February 15, 2021 @ 9:46 am', content: "I just made this soup today and it's so tasty! didn't have corn at home but still turned out very good. It's a winner! I made beef chili for my parents; but since my dad has gout he can't eat beef; this white chicken chili is perfect for him. Thank you Lisa!", profileSrc: 'https://via.placeholder.com/50' },
+                        { id: 3, author: 'CATHERINE LEONARDO', date: 'February 13, 2021 @ 12:58 pm', content: "I LOVE this White Chicken Chili! You are right, it is satiating meal—delicious with toasted bread. Refreshingly different taste than any chicken chili I've made in the past. I made it exactly as written and added some chopped zucchini, carrots, and celery. Instead of shredding the chicken, I chopped it into small pieces. It freezes very well. Will be an all-time favorite, for sure.", profileSrc: 'https://via.placeholder.com/50' },
+                        { id: 4, author: 'KALI', date: 'February 13, 2021 @ 11:31 am', content: "This recipe is dynamite! My partner usually won't eat beans but he finished the whole pot (darn was hoping to have some for leftovers haha). This is crowd-pleaser that I am going to add to my regular recipe rotation. Thanks so much, Lisa!", profileSrc: 'https://via.placeholder.com/50' }
+                    ],
+                    isModalVisible: false,
+                    currentProfileSrc: ''
+                }
+            },
+            methods: {
+                imageClicked(profileSrc) {
+                    this.currentProfileSrc = profileSrc;
+                    this.isModalVisible = true;
+                }
+            }
+        });
+
+        Vue.component('app-footer', {
+            template: `
+                <footer>{{ footerText }}</footer>
+            `,
+            data() {
+                return {
+                    footerText: '© Copyright FOOD BLOG'
+                }
+            }
+        });
+
+        var vm1 = new Vue({
+            el: '#headerComponent'
+        });
+        var vm2 = new Vue({
+            el: '#photoComponent'
+        });
+        var vm3 = new Vue({
+            el: '#commentsComponent'
+        });
+        var vm4 = new Vue({
+            el: '#footerComponent'
+        });
+    </script>
+
+</body>
+</html>
